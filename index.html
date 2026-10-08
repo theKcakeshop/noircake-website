@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIRCAKE — Korean Cakes</title>
+<meta name="description" content="Korean bento cakes and bottle cakes made to order.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root{--black:#070707;--dark:#0e0e0e;--panel:#151515;--panel2:#1b1a18;--cream:#f1eadc;--off:#ddd5c7;--white:#f8f7f3;--muted:#918e88;--line:#292825}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:"DM Sans",Arial,sans-serif;font-weight:300;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+.nav{height:76px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(7,7,7,.97);position:sticky;top:0;z-index:100}
+.logo{font-size:15px;letter-spacing:3px;font-weight:500}
+.logo span{font-weight:300;color:var(--cream)}
+.navlinks{display:flex;gap:32px;font-size:9px;letter-spacing:1.7px;text-transform:uppercase;color:var(--muted)}
+.navlinks a:hover{color:var(--cream)}
+.cart-button{border:0;background:none;color:var(--white);font-size:9px;letter-spacing:1.7px;text-transform:uppercase}
+
+.hero{min-height:760px;padding:75px 5%;display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.eyebrow{font-size:9px;letter-spacing:2.6px;color:var(--muted);margin-bottom:20px}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(58px,8vw,112px);line-height:.9;font-weight:400;letter-spacing:-4px;margin-bottom:35px}
+.hero h1 em{color:var(--cream)}
+.lead{max-width:450px;color:#9b9993;font-size:14px;line-height:1.9;margin-bottom:34px}
+.actions{display:flex;gap:28px;align-items:center}
+.btn{display:inline-block;padding:13px 22px;border:1px solid var(--cream);background:var(--cream);color:#090909;font-size:9px;text-transform:uppercase;letter-spacing:1.6px}
+.btn:hover{background:#fff}
+.link{font-size:10px;border-bottom:1px solid #666;padding-bottom:3px}
+.hero-image{height:610px;background:var(--panel);overflow:hidden;position:relative}
+.hero-image img{width:100%;height:100%;object-fit:cover;filter:brightness(.68) saturate(.68)}
+.image-label{position:absolute;bottom:17px;left:18px;right:18px;display:flex;justify-content:space-between;font-size:8px;letter-spacing:2px;color:#ddd}
+
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:17px 5%;display:flex;justify-content:center;align-items:center;gap:25px;color:var(--cream);font-size:8px;letter-spacing:2px;text-transform:uppercase;flex-wrap:wrap}
+.marquee i{color:#666;font-style:normal}
+
+.intro{text-align:center;background:var(--dark);padding:135px 5%}
+.intro h2,.section-title h2,.showcase-copy h2,.order-copy h2,.contact h2{font-family:"Playfair Display",serif;font-weight:400;line-height:1;letter-spacing:-2px}
+.intro h2{font-size:clamp(43px,6vw,78px);margin-bottom:28px}
+.intro p:last-child{max-width:560px;margin:auto;color:#92908a;font-size:14px}
+
+.collection{padding:125px 5%}
+.section-title{display:flex;justify-content:space-between;align-items:end;margin-bottom:55px}
+.section-title h2{font-size:clamp(45px,5vw,70px)}
+.section-price{text-align:right;color:var(--cream);font-size:10px;text-transform:uppercase;letter-spacing:1px;line-height:1.8}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:75px 28px}
+.card{min-width:0}
+.photo{aspect-ratio:1/1;background:var(--panel);overflow:hidden;position:relative}
+.photo img{width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(.72);transition:.7s ease}
+.card:hover .photo img{transform:scale(1.035);filter:brightness(.93) saturate(.82)}
+.number{position:absolute;top:15px;left:15px;background:rgba(0,0,0,.7);padding:5px 8px;font-size:8px;letter-spacing:1px}
+.card-info{display:flex;justify-content:space-between;gap:20px;padding-top:17px}
+.card-type{font-size:8px;letter-spacing:1.6px;text-transform:uppercase;color:#777;margin-bottom:6px}
+.card h3{font-family:"Playfair Display",serif;font-size:24px;font-weight:400}
+.card-right{text-align:right;white-space:nowrap}
+.card-right strong{display:block;color:var(--cream);font-size:13px;font-weight:400;margin-bottom:7px}
+.add{background:none;color:#aaa;border:0;border-bottom:1px solid #555;padding-bottom:3px;font-size:9px;text-transform:uppercase;letter-spacing:1.2px}
+.add:hover{color:#fff;border-color:#fff}
+
+.feature{background:var(--panel);display:grid;grid-template-columns:1fr 1fr;min-height:640px}
+.feature-img{overflow:hidden;min-height:640px}
+.feature-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.57) saturate(.6)}
+.feature-copy{padding:10%;display:flex;flex-direction:column;justify-content:center}
+.feature-copy h2{font-size:clamp(55px,6vw,90px);margin-bottom:30px}
+.feature-copy p:last-child{max-width:420px;color:#999;font-size:14px;line-height:1.9}
+
+.bottle .photo{aspect-ratio:4/5}
+
+.order{background:var(--cream);color:#0a0a0a;padding:115px 5%;display:grid;grid-template-columns:1fr .75fr;gap:100px}
+.order-copy h2{font-size:clamp(48px,6vw,82px);margin-bottom:28px}
+.order-copy>p:last-child{max-width:430px;color:#67635d;font-size:14px}
+.order-box{background:#0b0b0b;color:#fff;padding:28px}
+.order-item{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid #292929}
+.order-item strong{font-size:13px;font-weight:400;display:block}
+.order-item small{font-size:9px;color:#777}
+.qty{display:flex;align-items:center;gap:11px}
+.qty button{width:25px;height:25px;border:1px solid #444;background:none;color:#fff}
+.total{display:flex;justify-content:space-between;border-top:1px solid #444;margin-top:20px;padding:20px 0;font-size:12px}
+.total strong{font-weight:400;color:var(--cream)}
+.full{width:100%;text-align:center}
+.clear{margin-top:10px;background:transparent;color:#aaa;border-color:#444}
+.empty{color:#666;font-size:12px;padding:18px 0}
+
+.checkout{background:var(--dark);padding:110px 5%;display:none}
+.checkout.active{display:block}
+.checkout-inner{max-width:1050px;margin:auto}
+.checkout h2{font-family:"Playfair Display",serif;font-size:clamp(45px,6vw,75px);font-weight:400;margin-bottom:45px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full-field{grid-column:1/-1}
+.field label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#999}
+.field input,.field textarea{background:#111;border:1px solid #333;color:#fff;padding:14px;outline:0}
+.field input:focus,.field textarea:focus{border-color:#aaa}
+.checkout-actions{margin-top:30px;max-width:500px}
+.notice{font-size:11px;color:#888;margin-top:15px}
+
+.contact{text-align:center;background:var(--dark);padding:145px 5%}
+.contact h2{font-size:clamp(45px,6vw,78px);margin-bottom:42px}
+.socials{display:flex;justify-content:center;gap:30px}
+.socials a{font-size:9px;text-transform:uppercase;letter-spacing:1.7px;border-bottom:1px solid #555;padding-bottom:4px}
+
+footer{padding:28px 5%;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#777;font-size:9px;letter-spacing:2px}
+
+.toast{position:fixed;right:20px;bottom:20px;background:var(--cream);color:#111;padding:14px 18px;font-size:10px;letter-spacing:1px;z-index:500;transform:translateY(15px);opacity:0;transition:.25s}
+.toast.show{transform:translateY(0);opacity:1}
+
+@media(max-width:800px){
+.nav{padding:0 5%}.navlinks{display:none}
+.hero{grid-template-columns:1fr;padding:60px 5%;gap:45px}.hero h1{font-size:60px}.hero-image{height:500px}
+.intro{padding:95px 5%}.collection{padding:90px 5%}
+.section-title{display:block}.section-price{text-align:left;margin-top:18px}
+.grid{grid-template-columns:1fr;gap:55px}
+.feature{grid-template-columns:1fr}.feature-img{min-height:480px}.feature-copy{padding:75px 5%}
+.order{grid-template-columns:1fr;gap:50px;padding:90px 5%}
+.form-grid{grid-template-columns:1fr}.field.full-field{grid-column:auto}
+}
+@media(max-width:500px){
+.hero h1{font-size:48px;letter-spacing:-2px}.actions{flex-direction:column;align-items:flex-start}
+.card-info{display:block}.card-right{text-align:left;margin-top:14px}
+.socials{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a href="#top" class="logo">NOIR<span>CAKE</span></a>
+  <nav class="navlinks">
+    <a href="#bento">Bento Cakes</a>
+    <a href="#bottle">Bottle Cakes</a>
+    <a href="#about">About</a>
+    <a href="#order">Order</a>
+  </nav>
+  <button class="cart-button" onclick="document.querySelector('#order').scrollIntoView()">Order List (<span id="cart-count">0</span>)</button>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div>
+    <p class="eyebrow">KOREAN BENTO CAKES · BOTTLE CAKES</p>
+    <h1>Little cakes.<br><em>Big feelings.</em></h1>
+    <p class="lead">Handcrafted Korean-style cakes for birthdays, quiet celebrations, thoughtful gifts, and little moments that deserve something sweet.</p>
+    <div class="actions">
+      <a class="btn" href="#bento">Explore cakes</a>
+      <a class="link" href="#order">Build your order →</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1400&q=85" alt="Chocolate cake showcase">
+    <div class="image-label"><span>01</span><span>HANDMADE / SMALL BATCH</span></div>
+  </div>
+</section>
+
+<div class="marquee"><span>MADE TO ORDER</span><i>✦</i><span>ALL CAKES Rs. 1,200/=</span><i>✦</i><span>KOREAN-STYLE DESSERTS</span></div>
+
+<section class="intro" id="about">
+  <p class="eyebrow">THE IDEA</p>
+  <h2>Minimal by design.<br>Memorable by taste.</h2>
+  <p>Small-format cakes with a soft Korean-inspired aesthetic. Simple flavours, thoughtful details, and a little bit of sweetness for your favourite people.</p>
+</section>
+
+<section class="collection" id="bento">
+  <div class="section-title">
+    <div><p class="eyebrow">01 / BENTO MINI CAKES</p><h2>The Bento Collection</h2></div>
+    <p class="section-price">Every bento cake<br>Rs. 1,200/=</p>
+  </div>
+  <div id="bento-grid" class="grid"></div>
+</section>
+
+<section class="feature">
+  <div class="feature-img">
+    <img src="https://img.kwcdn.com/product/open/2239ede8823640feabb03d7424eb3188-goods.jpeg?imageMogr2/auto-orient|imageView2/2/w/800/q/70/format/webp" alt="Elegant cake">
+  </div>
+  <div class="feature-copy">
+    <p class="eyebrow">THE LITTLE THINGS</p>
+    <h2>Made for<br>the moment.</h2>
+    <p>From coffee-inspired flavours to creamy strawberry and rich chocolate, every cake is designed to be small, beautiful, and easy to love.</p>
+  </div>
+</section>
+
+<section class="collection bottle" id="bottle">
+  <div class="section-title">
+    <div><p class="eyebrow">02 / BOTTLE CAKES</p><h2>The Bottle Collection</h2></div>
+    <p class="section-price">Every bottle cake<br>Rs. 1,200/=</p>
+  </div>
+  <div id="bottle-grid" class="grid"></div>
+</section>
+
+<section class="order" id="order">
+  <div class="order-copy">
+    <p class="eyebrow">YOUR ORDER</p>
+    <h2>Choose your cakes.<br>We'll handle the rest.</h2>
+    <p>Add cakes to your order list, enter your details, and send the completed order directly to WhatsApp.</p>
+  </div>
+  <div class="order-box">
+    <div id="order-list"><p class="empty">Your order list is empty.</p></div>
+    <div class="total"><span>Total</span><strong id="total">Rs. 0/=</strong></div>
+    <button class="btn full" onclick="openCheckout()">Continue to checkout</button>
+    <button class="btn clear full" onclick="clearOrder()">Clear order</button>
+  </div>
+</section>
+
+<section class="checkout" id="checkout">
+  <div class="checkout-inner">
+    <p class="eyebrow">CHECKOUT</p>
+    <h2>Your details.</h2>
+    <form id="checkout-form">
+      <div class="form-grid">
+        <div class="field"><label>Name</label><input id="name" required></div>
+        <div class="field"><label>Phone</label><input id="phone" type="tel" required></div>
+        <div class="field full-field"><label>Address</label><textarea id="address" rows="3" required></textarea></div>
+        <div class="field"><label>Preferred date</label><input id="date" type="date" required></div>
+        <div class="field"><label>Notes</label><textarea id="notes" rows="2" placeholder="Message on cake, delivery notes, etc."></textarea></div>
+      </div>
+      <div class="checkout-actions">
+        <button class="btn full" type="submit">Send order via WhatsApp</button>
+        <p class="notice">Your order will open in WhatsApp with the selected cakes and customer details filled in.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="contact">
+  <p class="eyebrow">KEEP IN TOUCH</p>
+  <h2>Something sweet is coming.</h2>
+  <div class="socials">
+    <a id="whatsapp-link" href="#" target="_blank">WhatsApp</a>
+    <a href="#" target="_blank">Instagram</a>
+    <a href="mailto:hello@example.com">Email</a>
+  </div>
+</section>
+
+</main>
+
+<footer><span>NOIRCAKE</span><span>© 2026</span></footer>
+<div id="toast" class="toast"></div>
+
+<script>
+const PRICE=1200;
+const WHATSAPP="0703793800"; // CHANGE THIS TO YOUR REAL WHATSAPP NUMBER
+
+const products=[
+{id:"cappuccino",name:"K-Cappuccino",type:"Bento Mini Cake",flavour:"Coffee",image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=85"},
+{id:"macchiato",name:"Macchiato",type:"Bento Mini Cake",flavour:"Coffee",image:"https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=1000&q=85"},
+{id:"moca",name:"Moca",type:"Bento Mini Cake",flavour:"Mocha",image:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1000&q=85"},
+{id:"matcha",name:"Matcha Latte",type:"Bento Mini Cake",flavour:"Matcha",image:"https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=1000&q=85"},
+{id:"strawberry",name:"Strawberry Cream Cake",type:"Bento Mini Cake",flavour:"Strawberry & Cream",image:"https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1000&q=85"},
+{id:"chocolate",name:"Chocolate Mousse Cake",type:"Bento Mini Cake",flavour:"Chocolate",image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=85"},
+{id:"bottle-chocolate",name:"Chocolate Bottle",type:"Bottle Cake",flavour:"Chocolate",image:"https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=1000&q=85"},
+{id:"bottle-strawberry",name:"Strawberry Bottle",type:"Bottle Cake",flavour:"Strawberry & Cream",image:"https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1000&q=85"},
+{id:"bottle-matcha",name:"Matcha Bottle",type:"Bottle Cake",flavour:"Matcha",image:"https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1000&q=85"},
+{id:"bottle-mocha",name:"Mocha Bottle",type:"Bottle Cake",flavour:"Mocha",image:"https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=1000&q=85"}
+];
+
+let order=JSON.parse(localStorage.getItem("noircakeOrder")||"[]");
+
+function renderProducts(type,id){
+ const el=document.getElementById(id);
+ const list=products.filter(p=>p.type===type);
+ el.innerHTML=list.map((p,i)=>`
+ <article class="card">
+  <div class="photo"><img src="${p.image}" alt="${p.name}"><span class="number">${String(i+1).padStart(2,"0")}</span></div>
+  <div class="card-info">
+   <div><p class="card-type">${p.type} · ${p.flavour}</p><h3>${p.name}</h3></div>
+   <div class="card-right"><strong>Rs. 1,200/=</strong><button class="add" onclick="add('${p.id}')">Add +</button></div>
+  </div>
+ </article>`).join("");
+}
+
+function add(id){
+ const item=order.find(x=>x.id===id);
+ if(item)item.qty++;else order.push({id,qty:1});
+ save();renderOrder();toast("Cake added to your order");
+}
+
+function change(id,n){
+ const item=order.find(x=>x.id===id);
+ if(!item)return;
+ item.qty+=n;
+ if(item.qty<=0)order=order.filter(x=>x.id!==id);
+ save();renderOrder();
+}
+
+function save(){localStorage.setItem("noircakeOrder",JSON.stringify(order))}
+
+function renderOrder(){
+ const list=document.getElementById("order-list");
+ const count=order.reduce((s,x)=>s+x.qty,0);
+ const total=count*PRICE;
+ document.getElementById("cart-count").textContent=count;
+ document.getElementById("total").textContent=`Rs. ${total.toLocaleString("en-LK")}/=`;
+ if(!order.length){list.innerHTML='<p class="empty">Your order list is empty.</p>';return}
+ list.innerHTML=order.map(x=>{
+  const p=products.find(y=>y.id===x.id);
+  return `<div class="order-item"><div><strong>${p.name}</strong><small>Rs. 1,200/= each</small></div><div class="qty"><button onclick="change('${p.id}',-1)">−</button><span>${x.qty}</span><button onclick="change('${p.id}',1)">+</button></div></div>`
+ }).join("");
+}
+
+function clearOrder(){order=[];save();renderOrder()}
+
+function openCheckout(){
+ if(!order.length){toast("Add a cake to your order first");return}
+ const checkout=document.getElementById("checkout");
+ checkout.classList.add("active");
+ checkout.scrollIntoView({behavior:"smooth"});
+}
+
+document.getElementById("checkout-form").addEventListener("submit",function(e){
+ e.preventDefault();
+ if(!order.length){toast("Your order is empty");return}
+ const lines=order.map(x=>{
+  const p=products.find(y=>y.id===x.id);
+  return `• ${p.name} × ${x.qty} — Rs. ${(x.qty*PRICE).toLocaleString("en-LK")}/=`;
+ });
+ const count=order.reduce((s,x)=>s+x.qty,0);
+ const message=[
+  "CAKE ORDER — NOIRCAKE","",
+  ...lines,"",
+  `TOTAL: Rs. ${(count*PRICE).toLocaleString("en-LK")}/=`,
+  "",
+  "CUSTOMER DETAILS",
+  `Name: ${document.getElementById("name").value}`,
+  `Phone: ${document.getElementById("phone").value}`,
+  `Address: ${document.getElementById("address").value}`,
+  `Preferred date: ${document.getElementById("date").value}`,
+  `Notes: ${document.getElementById("notes").value||"None"}`
+ ].join("\n");
+ window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`,"_blank");
+});
+
+function toast(msg){
+ const el=document.getElementById("toast");
+ el.textContent=msg;el.classList.add("show");
+ setTimeout(()=>el.classList.remove("show"),1800);
+}
+
+document.getElementById("whatsapp-link").href=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hi! I'd like to enquire about your cakes.")}`;
+renderProducts("Bento Mini Cake","bento-grid");
+renderProducts("Bottle Cake","bottle-grid");
+renderOrder();
+</script>
+</body>
+</html>
